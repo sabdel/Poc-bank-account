@@ -1,6 +1,7 @@
-package com.bank.dao;
+package com.bank.domain;
 
 import java.math.BigDecimal;
+
 import java.time.LocalDateTime;
 import java.util.Currency;
 /**
@@ -10,10 +11,22 @@ import java.util.Currency;
  */
 public class Transaction {
 
-	
+	/**
+	 * The amount of money
+	 */
 	private final BigDecimal amount;
+	/**
+	 * The currency
+	 */
 	private Currency currency;
+	/**
+	 * The date
+	 */
 	private final LocalDateTime date;
+	
+	/**
+	 * The operation type
+	 */
 	private final TransactionType operation;
 	
 	

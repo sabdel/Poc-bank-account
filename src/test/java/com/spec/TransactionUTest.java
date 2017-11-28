@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 import org.junit.Test;
 
-import com.bank.dao.Transaction;
-import com.bank.dao.TransactionType;
+import com.bank.domain.Transaction;
+import com.bank.domain.TransactionType;
 
 public class TransactionUTest {
 	/**

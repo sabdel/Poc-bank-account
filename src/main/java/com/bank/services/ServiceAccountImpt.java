@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Currency;
 
-import com.bank.dao.Account;
-import com.bank.dao.StatementItem;
-import com.bank.dao.Transaction;
-import com.bank.dao.TransactionType;
+import com.bank.domain.Account;
+import com.bank.domain.StatementItem;
+import com.bank.domain.Transaction;
+import com.bank.domain.TransactionType;
 import com.google.common.base.Preconditions;
 
 public class ServiceAccountImpt implements ServiceAccount {

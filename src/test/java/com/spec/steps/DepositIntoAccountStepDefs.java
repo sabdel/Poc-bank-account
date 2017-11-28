@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Currency;
 
-import com.bank.dao.Account;
+import com.bank.domain.Account;
 import com.bank.services.ServiceAccount;
 import com.bank.services.ServiceAccountImpt;
 
