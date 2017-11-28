@@ -1,29 +1,36 @@
 package com.spec.steps;
 
-import java.math.BigDecimal;
+import static org.junit.Assert.assertEquals;
 
-import cucumber.api.PendingException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Currency;
+
+import com.bank.dao.Account;
+import com.bank.services.ServiceAccount;
+
 import cucumber.api.java8.En;
 
 public class AccountOperationsStepDefs implements En{
 	
-	 public AccountOperationsStepDefs() {
+	 private ServiceAccount serviceAccount; 
+	
+	 private Account account = new Account(new ArrayList<>(),BigDecimal.valueOf(0));;
+
+	public AccountOperationsStepDefs() {
 		 
-		 
-		 
-		   Given("^An existing client named \"([^\"]*)\" with (\\d+\\.\\d+) euros in his account$", (String arg1,BigDecimal arg2) -> {
-			    // Write code here that turns the phrase above into concrete actions
-			    throw new PendingException();
+		   Given("^An existing client named \"([^\"]*)\" with (\\d+\\.\\d+) euros in his account$", (String arg1,BigDecimal balance) -> {
+			   account.setBalance(balance);		
+			   
+		   });
+
+			When("^he deposits (\\-?\\d+\\.\\d+)  into his account$", (BigDecimal amount) -> {
+				serviceAccount.deposit(account, amount,Currency.getInstance("EUR"), LocalDate.now());
 			});
 
-			When("^he deposits (\\-?\\d+\\.\\d+)  into his account$", (BigDecimal arg2) -> {
-			    // Write code here that turns the phrase above into concrete actions
-			    throw new PendingException();
-			});
-
-			Then("^the new balance should be (\\d+\\.\\d+)$", (BigDecimal arg2) -> {
-			    // Write code here that turns the phrase above into concrete actions
-			    throw new PendingException();
+			Then("^the new balance should be (\\d+\\.\\d+)$", (BigDecimal newBalance) -> {
+              assertEquals(true,account.getBalance().compareTo(newBalance) );
 			});
 
 	 }
