@@ -19,8 +19,6 @@ import com.bank.domain.TransactionType;
 import com.bank.services.ServiceAccount;
 import com.bank.services.ServiceAccountImpt;
 
-import junitparams.Parameters;
-
 @RunWith(JUnit4.class)
 public class AccountUTest {
 

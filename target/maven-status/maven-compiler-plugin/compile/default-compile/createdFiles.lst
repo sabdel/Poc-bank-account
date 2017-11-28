@@ -1,0 +1,6 @@
+com\bank\domain\TransactionType.class
+com\bank\services\ServiceAccountImpt.class
+com\bank\domain\StatementItem.class
+com\bank\domain\Transaction.class
+com\bank\domain\Account.class
+com\bank\services\ServiceAccount.class
