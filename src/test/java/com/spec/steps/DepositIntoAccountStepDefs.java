@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Currency;
 
 import com.bank.dao.Account;
@@ -13,13 +12,13 @@ import com.bank.services.ServiceAccountImpt;
 
 import cucumber.api.java8.En;
 
-public class AccountOperationsStepDefs implements En {
+public class DepositIntoAccountStepDefs implements En {
 
 	private ServiceAccount serviceAccount = new ServiceAccountImpt();
 
 	private Account account = new Account();
 
-	public AccountOperationsStepDefs() {
+	public DepositIntoAccountStepDefs() {
 
 		Given("^An existing client named \"([^\"]*)\" with (\\d+\\.\\d+) euros in his account$",
 				(String arg1, BigDecimal balance) -> {

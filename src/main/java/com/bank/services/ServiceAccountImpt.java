@@ -15,13 +15,14 @@ public class ServiceAccountImpt implements ServiceAccount {
 	@Override
 	public Account deposit(Account account, BigDecimal amount, Currency currency, LocalDateTime date) {
 		// TODO Wait for Logger or/and Notification System
-       try{
-		Preconditions.checkNotNull(account);
-		Preconditions.checkNotNull(amount);
-       }catch (NullPointerException e) {
-		throw new IllegalArgumentException(e);
-	}
-		
+		try {
+			Preconditions.checkNotNull(account);
+			Preconditions.checkNotNull(amount);
+			Preconditions.checkNotNull(date);
+		} catch (NullPointerException e) {
+			throw new IllegalArgumentException(e);
+		}
+
 		if (amount.compareTo(BigDecimal.ZERO) == -1) {
 			return account;
 		}
