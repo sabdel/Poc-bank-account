@@ -2,6 +2,7 @@ package com.bank.domain;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 /**
  * This is a representation of a commited operation stored in the cache
@@ -9,7 +10,8 @@ import java.time.format.DateTimeFormatter;
  * @author SLA
  *
  */
-public class StatementItem {
+public class StatementItem extends BusinessObject{
+	
 	
 	/**
 	 * The transaction
@@ -35,11 +37,14 @@ public class StatementItem {
 		return balance;
 	}
 
-	@Override
-	public String toString() {
-		return "StatementItem [transaction=" + transaction + ", balance=" + balance + "]";
+	/**
+	 * 
+	 * @return
+	 */
+	public UUID getId() {
+		return id;
 	}
-	
+
 	public String print(DateTimeFormatter dateFormater){
 		final StringBuilder joiner = new StringBuilder("");
 		joiner.append(this.getTransaction().getDate().format(dateFormater)).append(" ");
@@ -49,5 +54,10 @@ public class StatementItem {
 		return joiner.toString();
 	}
 	
+	@Override
+	public String toString() {
+		return "StatementItem [transaction=" + transaction + ", balance=" + balance + "]";
+	}
+
 
 }

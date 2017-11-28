@@ -10,12 +10,8 @@ import java.util.UUID;
  * @author SLA
  *
  */
-public class Account {
+public class Account extends BusinessObject{
 
-	/**
-	 * the identifier
-	 */
-	public UUID Id;
 
 	/**
 	 * All statements
@@ -28,12 +24,15 @@ public class Account {
 	public BigDecimal overdraft = BigDecimal.ZERO;
 	
 	public Account() {
-		this.Id = UUID.randomUUID();
-		
+		super();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public UUID getId() {
-		return Id;
+		return id;
 	}
 
 	

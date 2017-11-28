@@ -4,12 +4,13 @@ import java.math.BigDecimal;
 
 import java.time.LocalDateTime;
 import java.util.Currency;
+import java.util.UUID;
 /**
  * A bank account operation 
  * @author SLA
  *
  */
-public class Transaction {
+public class Transaction extends BusinessObject{
 
 	/**
 	 * The amount of money
@@ -63,6 +64,13 @@ public class Transaction {
 		return operation;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public UUID getId() {
+		return id;
+	}
 
 	@Override
 	public int hashCode() {
