@@ -17,7 +17,7 @@ public class AccountOperationsStepDefs implements En {
 
 	private ServiceAccount serviceAccount = new ServiceAccountImpt();
 
-	private Account account = new Account(new ArrayList<>());
+	private Account account = new Account();
 
 	public AccountOperationsStepDefs() {
 

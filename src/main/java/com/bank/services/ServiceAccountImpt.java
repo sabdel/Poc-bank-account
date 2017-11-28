@@ -8,17 +8,25 @@ import com.bank.dao.Account;
 import com.bank.dao.StatementItem;
 import com.bank.dao.Transaction;
 import com.bank.dao.TransactionType;
+import com.google.common.base.Preconditions;
 
 public class ServiceAccountImpt implements ServiceAccount {
 
 	@Override
 	public Account deposit(Account account, BigDecimal amount, Currency currency, LocalDateTime date) {
-		if(amount.compareTo(BigDecimal.ZERO) == -1 ){
-			//TODO Wait for Logger or/and Notification System 
+		// TODO Wait for Logger or/and Notification System
+       try{
+		Preconditions.checkNotNull(account);
+		Preconditions.checkNotNull(amount);
+       }catch (NullPointerException e) {
+		throw new IllegalArgumentException(e);
+	}
+		
+		if (amount.compareTo(BigDecimal.ZERO) == -1) {
 			return account;
 		}
 		Transaction transaction = new Transaction(amount, currency, date, TransactionType.DEPOSIT);
-		   // TODO Fix Currency !!!!
+		// TODO Fix Currency !!!!
 		StatementItem item = new StatementItem(transaction, account.getBalance().add(transaction.getAmount()));
 		account.addStatementItem(item);
 		return account;

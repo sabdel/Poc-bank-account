@@ -12,9 +12,9 @@ public class Account {
 
 	public List<StatementItem> statements = new ArrayList<>();
 
-	public Account(List<StatementItem> statements) {
+	public Account() {
 		this.Id = UUID.randomUUID();
-		this.statements = statements;
+		
 	}
 
 	public UUID getId() {
