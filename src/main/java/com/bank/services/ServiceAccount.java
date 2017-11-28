@@ -17,4 +17,9 @@ public interface ServiceAccount {
 	Account deposit(Account account,BigDecimal amount,Currency currency, LocalDateTime date);
 
 	Account deposit(Account account,BigDecimal amount,Currency currency);
+
+	Account withdraw(Account account,BigDecimal amount,Currency currency, LocalDateTime date);
+
+	Account withdraw(Account account,BigDecimal amount,Currency currency);
+
 }

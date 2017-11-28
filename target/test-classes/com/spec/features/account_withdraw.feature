@@ -3,18 +3,17 @@
          I want to make a withdrawal from my account
 
   Background: 
-    Given An existing client named "Toto" with 1000.0 euros in his account
+  Given An existing client  "Toto" with 1000.0 euros in his account and 200.0 as overdraft
      
   Scenario Outline: Withdraws money from account 
-    When he withdraws <amount>  from his account
-    And  has <overdraft> 
+    When he withdraws <amount>  from his account 
     Then his new balance should be <balance> 
 
   Examples:
- | amount      | overdraft| balance   |
- |  500.0      | 200      |  500.0    |
- |  -1200.0    | 200      |  -100.0   |
- |  -1400.0    | 200      |  1000.0   |    
+ | amount     | balance   |
+ |  500.0     |  500.0    |
+ |  1100.0    |  -100.0   |
+ |  1400.0    |  1000.0   |    
     
   
   

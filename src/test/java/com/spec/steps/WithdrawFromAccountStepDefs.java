@@ -1,12 +1,13 @@
 package com.spec.steps;
 
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigDecimal;
 
 import com.bank.dao.Account;
 import com.bank.services.ServiceAccount;
 import com.bank.services.ServiceAccountImpt;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 
 public class WithdrawFromAccountStepDefs implements En {
@@ -17,19 +18,20 @@ public class WithdrawFromAccountStepDefs implements En {
 
 	public WithdrawFromAccountStepDefs() {
 
-		When("^he withdraws (\\-?\\d+\\.\\d+)  from his account$", (BigDecimal amount) -> {
-		    // Write code here that turns the phrase above into concrete actions
-		    throw new PendingException();
-		});
+		Given("^An existing client  \"([^\"]*)\" with (\\-?\\d+\\.\\d+) euros in his account and (\\-?\\d+\\.\\d+) as overdraft$",
+				(String arg1, BigDecimal amount,BigDecimal overdraft) -> {
+					serviceAccount.deposit(account, amount, null);
+					account.setOverdraft(overdraft);
+				});
 
-		When("^has (\\d+)$", (BigDecimal overdraft) -> {
-		    // Write code here that turns the phrase above into concrete actions
-		    throw new PendingException();
+
+		When("^he withdraws (\\-?\\d+\\.\\d+)  from his account$", (BigDecimal amount) -> {
+			serviceAccount.withdraw(account, amount, null);
 		});
 
 		Then("^his new balance should be (\\-?\\d+\\.\\d+)$", (BigDecimal newBalance) -> {
-		    // Write code here that turns the phrase above into concrete actions
-		    throw new PendingException();
+			System.out.println(account.getBalance() + " "+ newBalance);
+			assertEquals(0, account.getBalance().compareTo(newBalance));
 		});
 
 	}

@@ -12,6 +12,8 @@ public class Account {
 
 	public List<StatementItem> statements = new ArrayList<>();
 
+	public BigDecimal overdraft = BigDecimal.ZERO;
+	
 	public Account() {
 		this.Id = UUID.randomUUID();
 		
@@ -19,6 +21,15 @@ public class Account {
 
 	public UUID getId() {
 		return Id;
+	}
+
+	
+	public BigDecimal getOverdraft() {
+		return overdraft;
+	}
+
+	public void setOverdraft(BigDecimal overdraft) {
+		this.overdraft = overdraft;
 	}
 
 	public List<StatementItem> getStatements() {
