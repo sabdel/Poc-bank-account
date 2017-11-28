@@ -1,15 +1,20 @@
 package com.bank.services;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Currency;
 
 import com.bank.dao.Account;
-import com.bank.dao.StatementItem;
 
+/**
+ * This class contains all operations , Every implemantation should be ThreadSafe
+ * @author SLA
+ *
+ */
 public interface ServiceAccount {
 
-	StatementItem deposit(Account account,BigDecimal amount,Currency currency, LocalDate date);
+	
+	Account deposit(Account account,BigDecimal amount,Currency currency, LocalDateTime date);
 
-	StatementItem deposit(Account account,BigDecimal amount,Currency currency);
+	Account deposit(Account account,BigDecimal amount,Currency currency);
 }

@@ -1,53 +1,37 @@
 package com.bank.dao;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 public class Account {
 
-	public  UUID	 Id;
-	
-	public  List<StatementItem> statements;
-	
-	public BigDecimal balance;
-	
+	public UUID Id;
 
-	public Account(List<StatementItem> statements,BigDecimal balance) {
+	public List<StatementItem> statements = new ArrayList<>();
+
+	public Account(List<StatementItem> statements) {
 		this.Id = UUID.randomUUID();
 		this.statements = statements;
-		this.balance = balance;
-		
 	}
 
 	public UUID getId() {
 		return Id;
 	}
 
-	public void setId(UUID id) {
-		Id = id;
-	}
-
 	public List<StatementItem> getStatements() {
-		return statements;
+		return Collections.unmodifiableList(statements);
 	}
 
-	public void setStatements(List<StatementItem> statements) {
-		this.statements = statements;
+	public void addStatementItem(final StatementItem statementItem) {
+		this.statements.add(statementItem);
 	}
 
 	public BigDecimal getBalance() {
-		return balance;
+		return this.statements.isEmpty() ? BigDecimal.ZERO
+				: this.statements.get(this.statements.size() - 1).getBalance();
 	}
 
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
-
-	
-	
-	
-	
-	
-	
 }
