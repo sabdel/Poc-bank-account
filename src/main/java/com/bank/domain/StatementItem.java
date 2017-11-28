@@ -1,6 +1,7 @@
 package com.bank.domain;
 
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This is a representation of a commited operation stored in the cache
@@ -33,8 +34,20 @@ public class StatementItem {
 	public BigDecimal getBalance() {
 		return balance;
 	}
+
+	@Override
+	public String toString() {
+		return "StatementItem [transaction=" + transaction + ", balance=" + balance + "]";
+	}
 	
-	
+	public String print(DateTimeFormatter dateFormater){
+		final StringBuilder joiner = new StringBuilder("");
+		joiner.append(this.getTransaction().getDate().format(dateFormater)).append(" ");
+		joiner.append(this.getTransaction().getOperation().name()).append(" ");
+		joiner.append(this.getTransaction().getAmount().toPlainString()).append(" ");
+		joiner.append(this.getBalance().toPlainString());
+		return joiner.toString();
+	}
 	
 
 }

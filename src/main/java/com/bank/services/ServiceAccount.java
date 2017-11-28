@@ -2,6 +2,7 @@ package com.bank.services;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Currency;
 
 import com.bank.domain.Account;
@@ -52,10 +53,18 @@ public interface ServiceAccount {
 	Account withdraw(Account account,BigDecimal amount,Currency currency);
 	
 	/**
-	 * Get and Print all operations, no filter
+	 * Get and Print all operations, no filter by dafalut {@link DateTimeFormatter.ISO_LOCAL_DATE_TIME} 
 	 * @param account
 	 * @return
 	 */
 	String print(Account account);
+	
+	/**
+	 * Get and Print all operations, specify a date formater
+	 * @param account
+	 * @return
+	 */
+	String print(Account account,DateTimeFormatter dateFormater);
+
 
 }

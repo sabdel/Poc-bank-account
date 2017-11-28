@@ -2,7 +2,10 @@ package com.bank.services;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Currency;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import com.bank.domain.Account;
 import com.bank.domain.StatementItem;
@@ -73,15 +76,14 @@ public class ServiceAccountImpt implements ServiceAccount {
 
 	@Override
 	public String print(Account account) {
-		 final StringBuilder sb = new StringBuilder();
-	        for (final StatementItem statementItem : account.statements) {
-	            sb.append(statementItem.getTransaction().getDate()).append(" ");
-	            sb.append(statementItem.getTransaction().getOperation()).append(" ");
-	            sb.append(statementItem.getTransaction().getAmount().doubleValue()).append(" ");
-	            sb.append(statementItem.getBalance().doubleValue());
-	            sb.append("\n");
-	        }
-	        return sb.toString();
+		return print(account,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+	}
+
+	@Override
+	public String print(Account account, DateTimeFormatter dateFormater) {
+		String history = account.statements.stream().map(s -> s.print(dateFormater)).collect(Collectors.joining("\n"));
+		return history;
+
 	}
 
 }
