@@ -81,7 +81,7 @@ public class ServiceAccountImpt implements ServiceAccount {
 
 	@Override
 	public String print(Account account, DateTimeFormatter dateFormater) {
-		String history = account.statements.stream().map(s -> s.print(dateFormater)).collect(Collectors.joining("\n"));
+		String history = account.getStatements().stream().map(s -> s.print(dateFormater)).collect(Collectors.joining("\n"));
 		return history;
 
 	}
