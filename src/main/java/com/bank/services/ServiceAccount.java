@@ -4,8 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Currency;
+import java.util.function.Predicate;
 
 import com.bank.domain.Account;
+import com.bank.domain.StatementItem;
 
 /**
  * This class contains all operations , Every implemantation should be ThreadSafe
@@ -53,18 +55,33 @@ public interface ServiceAccount {
 	Account withdraw(Account account,BigDecimal amount,Currency currency);
 	
 	/**
-	 * Get and Print all operations, no filter by dafalut {@link DateTimeFormatter.ISO_LOCAL_DATE_TIME} 
+	 * Get and Print all operations, by dafalut {@link DateTimeFormatter.ISO_LOCAL_DATE_TIME} , No filter
 	 * @param account
 	 * @return
 	 */
 	String print(Account account);
 	
 	/**
-	 * Get and Print all operations, specify a date formater
+	 * Get and Print all operations, no filter 
 	 * @param account
 	 * @return
 	 */
 	String print(Account account,DateTimeFormatter dateFormater);
+	
+	/**
+	 * Get and Print all operations, by dafalut {@link DateTimeFormatter.ISO_LOCAL_DATE_TIME} 
+	 * @param account
+	 * @return
+	 */
+	String print(Account account,Predicate<StatementItem> predicate);
+
+
+	/**
+	 * Get and Print all operations, specify a date formater
+	 * @param account
+	 * @return
+	 */
+	String print(Account account,DateTimeFormatter dateFormater,Predicate<StatementItem> predicate);
 
 
 }

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Currency;
-import java.util.StringJoiner;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.bank.domain.Account;
@@ -76,14 +76,24 @@ public class ServiceAccountImpt implements ServiceAccount {
 
 	@Override
 	public String print(Account account) {
-		return print(account,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+		return print(account, DateTimeFormatter.ISO_LOCAL_DATE_TIME, BankAccountPredicates.alwaysTrue());
 	}
 
 	@Override
 	public String print(Account account, DateTimeFormatter dateFormater) {
-		String history = account.getStatements().stream().map(s -> s.print(dateFormater)).collect(Collectors.joining("\n"));
-		return history;
+		return print(account, dateFormater, BankAccountPredicates.alwaysTrue());
+	}
 
+	@Override
+	public String print(Account account, Predicate<StatementItem> predicate) {
+		return print(account, DateTimeFormatter.ISO_LOCAL_DATE_TIME, predicate);
+	}
+
+	@Override
+	public String print(Account account, DateTimeFormatter dateFormater, Predicate<StatementItem> predicate) {
+		String history = BankAccountPredicates.filterStatements(account, predicate).stream()
+				.map(s -> s.print(dateFormater)).collect(Collectors.joining("\n"));
+		return history;
 	}
 
 }

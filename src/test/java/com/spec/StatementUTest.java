@@ -20,6 +20,7 @@ import com.bank.domain.Account;
 import com.bank.domain.StatementItem;
 import com.bank.domain.Transaction;
 import com.bank.domain.TransactionType;
+import com.bank.services.BankAccountPredicates;
 import com.bank.services.ServiceAccount;
 import com.bank.services.ServiceAccountImpt;
 
@@ -44,7 +45,7 @@ public class StatementUTest {
 		Transaction transactionWithdraw_50 = new Transaction(BigDecimal.valueOf(50.0), null,
 				LocalDateTime.parse("2016-01-02T00:00:00.000", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
 				TransactionType.WITHDRAWAL);
-		StatementItem withdrawOperation = new StatementItem(transactionWithdraw_50, BigDecimal.valueOf(100.0));
+		StatementItem withdrawOperation = new StatementItem(transactionWithdraw_50, BigDecimal.valueOf(50.0));
 		items.add(withdrawOperation);
 		when(account.getStatements()).thenReturn(Collections.unmodifiableList(items));
 
@@ -53,7 +54,7 @@ public class StatementUTest {
 	@Test
 	public void getOnlyCreditOperation(){
 		
-		String str = sAccount.print(account);
+		String str = sAccount.print(account,BankAccountPredicates.isCreditOperation());
 		assertThat(str)
 		.isEqualTo("2017-01-01T00:00:00 DEPOSIT 100.0 100.0");
 
@@ -61,7 +62,7 @@ public class StatementUTest {
 	
 	@Test
 	public void getOnlyDebitOperation(){
-		String str = sAccount.print(account);
+		String str = sAccount.print(account,BankAccountPredicates.isDebitOperation());
 		assertThat(str)
 		.isEqualTo("2016-01-02T00:00:00 WITHDRAWAL 50.0 50.0");
 
@@ -69,7 +70,7 @@ public class StatementUTest {
 	
 	@Test
 	public void getAllOperationBeforeThisDate_2016_05_05(){
-		String str = sAccount.print(account);
+		String str = sAccount.print(account,BankAccountPredicates.isOperationBefore(LocalDateTime.parse("2016-05-05T00:00:00.000", DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
 		assertThat(str)
 		.isEqualTo("2016-01-02T00:00:00 WITHDRAWAL 50.0 50.0");
 	
@@ -77,14 +78,15 @@ public class StatementUTest {
 	
 	@Test
 	public void getAllOperationAfterThisDate_2016_05_05(){
-		String str = sAccount.print(account);
+		String str = sAccount.print(account,BankAccountPredicates.isOperationAfter(LocalDateTime.parse("2016-05-05T00:00:00.000", DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
 		assertThat(str)
 		.isEqualTo("2017-01-01T00:00:00 DEPOSIT 100.0 100.0");
 
 	}
+	
 	@Test
 	public void getAllOperationOfThisDate_2016_05_05(){
-		String str = sAccount.print(account);
+		String str = sAccount.print(account,BankAccountPredicates.isOperationThisDay(LocalDateTime.parse("2016-05-05T00:00:00.000", DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
 		assertThat(str)
 		.isEqualTo("");
 	

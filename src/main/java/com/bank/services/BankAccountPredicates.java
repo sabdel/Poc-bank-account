@@ -57,8 +57,16 @@ public class BankAccountPredicates {
 		return statement -> statement.getTransaction().getDate().isEqual(date);
 	}
 
-	
-	public static List<StatementItem> filterStatements(Account account, Predicate<StatementItem> predicate) {
+	/**
+	 * No Filter
+	 * @param account
+	 * @param predicate
+	 * @return
+	 */
+	public static Predicate<StatementItem> alwaysTrue(){
+		return statement -> Boolean.TRUE;
+	}
+	public static List<StatementItem> filterStatements(Account account, java.util.function.Predicate<StatementItem> predicate) {
 		return account.getStatements().stream().filter(predicate).collect(Collectors.<StatementItem>toList());
 	}
 
