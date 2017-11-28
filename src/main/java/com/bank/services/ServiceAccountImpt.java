@@ -71,4 +71,17 @@ public class ServiceAccountImpt implements ServiceAccount {
 		return withdraw(account, amount, currency, LocalDateTime.now());
 	}
 
+	@Override
+	public String print(Account account) {
+		 final StringBuilder sb = new StringBuilder();
+	        for (final StatementItem statementItem : account.statements) {
+	            sb.append(statementItem.getTransaction().getDate()).append(" ");
+	            sb.append(statementItem.getTransaction().getOperation()).append(" ");
+	            sb.append(statementItem.getTransaction().getAmount().doubleValue()).append(" ");
+	            sb.append(statementItem.getBalance().doubleValue());
+	            sb.append("\n");
+	        }
+	        return sb.toString();
+	}
+
 }

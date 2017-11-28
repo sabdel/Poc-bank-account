@@ -21,5 +21,7 @@ public interface ServiceAccount {
 	Account withdraw(Account account,BigDecimal amount,Currency currency, LocalDateTime date);
 
 	Account withdraw(Account account,BigDecimal amount,Currency currency);
+	
+	String print(Account account);
 
 }

@@ -1,5 +1,6 @@
 package com.spec;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -14,6 +15,8 @@ import org.junit.runners.JUnit4;
 
 import com.bank.dao.Account;
 import com.bank.dao.StatementItem;
+import com.bank.dao.Transaction;
+import com.bank.dao.TransactionType;
 import com.bank.services.ServiceAccount;
 import com.bank.services.ServiceAccountImpt;
 
@@ -115,6 +118,24 @@ public class AccountUTest {
 		assertEquals(0, (account.getBalance().compareTo(BigDecimal.valueOf(50))));
 		assertEquals(2,statement.size());
 	}
+	
+	
+	/**
+     * should_print_statement_with_2_items_with_balance_50_when_a_transaction_of_100_and_a_transaction_of_minus_50.
+     *
+     */
+    @Test
+    public void should_print_statement_with_2_items_with_balance_50_when_a_transaction_of_100_and_a_transaction_of_minus_50() {
+        final Account statement = new Account();
+        Transaction transactionDepsit_100 = new Transaction(BigDecimal.valueOf(100.0),null,LocalDateTime.parse("2000-01-01T00:00:00.000"),TransactionType.DEPOSIT);
+        statement.addStatementItem(new StatementItem(transactionDepsit_100, BigDecimal.valueOf(100.0)));
+        Transaction transactionWithdraw_50 = new Transaction(BigDecimal.valueOf(50.0),null,LocalDateTime.parse("2000-01-02T00:00:00.000"),TransactionType.WITHDRAWAL);
+        statement.addStatementItem(new StatementItem(transactionWithdraw_50, BigDecimal.valueOf(50.0)));
+
+        assertThat(statement.getStatements().size()).isEqualTo(2);
+        assertThat(statement.getBalance()).isEqualTo(BigDecimal.valueOf(50.0));
+        assertThat(sAccount.print(statement)).isEqualTo("2000-01-01T00:00 DEPOSIT 100.0 100.0\n2000-01-02T00:00 WITHDRAWAL 50.0 50.0\n");
+    }
 
 //	/**
 //	 * should_return_statement_balance_$1_when_i_did_transaction_with_amount_$2_$3_$4.
