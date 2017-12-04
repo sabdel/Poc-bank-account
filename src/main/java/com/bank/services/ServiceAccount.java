@@ -17,6 +17,12 @@ import com.bank.domain.StatementItem;
 public interface ServiceAccount {
 
 	/**
+	 * compute the balance of the account 
+	 */
+	
+	BigDecimal getBalance(Account account);
+	
+	/**
 	 * deposit an amount of money into an account 
 	 * @param account
 	 * @param amount

@@ -30,7 +30,7 @@ public class DepositIntoAccountStepDefs implements En {
 		});
 
 		Then("^the new balance should be (\\d+\\.\\d+)$", (BigDecimal newBalance) -> {
-			assertEquals(0, account.getBalance().compareTo(newBalance));
+			assertEquals(0, serviceAccount.getBalance(account).compareTo(newBalance));
 		});
 
 	}

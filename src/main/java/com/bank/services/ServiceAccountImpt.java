@@ -16,6 +16,19 @@ import com.google.common.base.Preconditions;
 public class ServiceAccountImpt implements ServiceAccount {
 
 	@Override
+	public BigDecimal getBalance(Account account) {
+		double credits = account.getStatements().stream()
+				.filter(rec -> TransactionType.DEPOSIT.equals(rec.getTransaction().getOperation()))
+				.mapToDouble(rec -> rec.getTransaction().getAmount().doubleValue()).sum();
+
+		double debits = account.getStatements().stream()
+				.filter(rec -> TransactionType.WITHDRAWAL.equals(rec.getTransaction().getOperation()))
+				.mapToDouble(rec -> rec.getTransaction().getAmount().doubleValue()).sum();
+
+		return BigDecimal.valueOf(credits - debits);
+	}
+
+	@Override
 	public Account deposit(Account account, BigDecimal amount, Currency currency, LocalDateTime date) {
 		// TODO Wait for Logger or/and Notification System
 		try {
@@ -31,7 +44,10 @@ public class ServiceAccountImpt implements ServiceAccount {
 		}
 		Transaction transaction = new Transaction(amount, currency, date, TransactionType.DEPOSIT);
 		// TODO Fix Currency !!!!
-		StatementItem item = new StatementItem(transaction, account.getBalance().add(transaction.getAmount()));
+		BigDecimal newBalance = account.getBalance().add(transaction.getAmount());
+
+		account.setBalance(newBalance);
+		StatementItem item = new StatementItem(transaction,newBalance );
 		account.addStatementItem(item);
 		return account;
 	}
@@ -64,6 +80,8 @@ public class ServiceAccountImpt implements ServiceAccount {
 		} else {
 			newBalance = newBalanceWithOverDraft.subtract(account.getOverdraft());
 		}
+
+		account.setBalance(newBalance);
 		StatementItem item = new StatementItem(transaction, newBalance);
 		account.addStatementItem(item);
 		return account;

@@ -15,8 +15,6 @@ import org.junit.runners.JUnit4;
 
 import com.bank.domain.Account;
 import com.bank.domain.StatementItem;
-import com.bank.domain.Transaction;
-import com.bank.domain.TransactionType;
 import com.bank.services.ServiceAccount;
 import com.bank.services.ServiceAccountImpt;
 
@@ -52,7 +50,7 @@ public class AccountUTest {
 		final Account account = new Account();
 		final Account expectedAccount = sAccount.deposit(account, aDepositOf100, null);
 		assertNotNull(expectedAccount);
-		assertEquals(0, expectedAccount.getBalance().compareTo(aDepositOf100));
+		assertEquals(0, sAccount.getBalance(expectedAccount).compareTo(aDepositOf100));
 	}
 
 	/**
@@ -65,7 +63,7 @@ public class AccountUTest {
 		final Account account = new Account();
 		final Account expectedAccount = sAccount.deposit(account, aDepositOf100, null, LocalDateTime.now());
 		assertNotNull(expectedAccount);
-		assertEquals(0, expectedAccount.getBalance().compareTo(aDepositOf100));
+		assertEquals(0, sAccount.getBalance(expectedAccount).compareTo(aDepositOf100));
 	}
 
 	/**
@@ -80,7 +78,7 @@ public class AccountUTest {
 
 		sAccount.deposit(account, aDepositOf100, null, LocalDateTime.now());
 		sAccount.withdraw(account, aWithdrawOf50, null, LocalDateTime.now());
-		assertEquals(0, (account.getBalance().compareTo(BigDecimal.valueOf(50))));
+		assertEquals(0, (sAccount.getBalance(account).compareTo(BigDecimal.valueOf(50))));
 	}
 
 	/**
@@ -92,9 +90,8 @@ public class AccountUTest {
 		final Account account = new Account();
 		account.setOverdraft(BigDecimal.valueOf(200.0));
 		final BigDecimal aWithdrawOf50 = BigDecimal.valueOf(50.0);
-
 		sAccount.withdraw(account, aWithdrawOf50, null, LocalDateTime.now());
-		assertEquals(0, (account.getBalance().compareTo(BigDecimal.valueOf(-50))));
+		assertEquals(0, (sAccount.getBalance(account).compareTo(BigDecimal.valueOf(-50))));
 	}
 
 	/**
@@ -112,7 +109,7 @@ public class AccountUTest {
 		sAccount.withdraw(account, aWithdrawOf50, null, LocalDateTime.now());
 
 		final List<StatementItem> statement = account.getStatements();
-		assertEquals(0, (account.getBalance().compareTo(BigDecimal.valueOf(50))));
+		assertEquals(0, (sAccount.getBalance(account).compareTo(BigDecimal.valueOf(50))));
 		assertEquals(2, statement.size());
 	}
 
@@ -122,21 +119,23 @@ public class AccountUTest {
 	 */
 	@Test
 	public void should_print_statement_with_2_items_with_balance_50_when_a_transaction_of_100_and_a_transaction_of_minus_50() {
-		final Account statement = new Account();
-		Transaction transactionDepsit_100 = new Transaction(BigDecimal.valueOf(100.0), null,
-				LocalDateTime.parse("2000-01-01T00:00:00.000", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-				TransactionType.DEPOSIT);
-		statement.addStatementItem(new StatementItem(transactionDepsit_100, BigDecimal.valueOf(100.0)));
-		Transaction transactionWithdraw_50 = new Transaction(BigDecimal.valueOf(50.0), null,
-				LocalDateTime.parse("2000-01-02T00:00:00.000", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-				TransactionType.WITHDRAWAL);
-		statement.addStatementItem(new StatementItem(transactionWithdraw_50, BigDecimal.valueOf(50.0)));
+		final Account account = new Account();
+//		Transaction transactionDepsit_100 = new Transaction(BigDecimal.valueOf(100.0), null,
+//				LocalDateTime.parse("2000-01-01T00:00:00.000", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+//				TransactionType.DEPOSIT);
+//		account.addStatementItem(new StatementItem(transactionDepsit_100, BigDecimal.valueOf(100.0)));
+//		Transaction transactionWithdraw_50 = new Transaction(BigDecimal.valueOf(50.0), null,
+//				LocalDateTime.parse("2000-01-02T00:00:00.000", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+//				TransactionType.WITHDRAWAL);
+//		account.addStatementItem(new StatementItem(transactionWithdraw_50, BigDecimal.valueOf(50.0)));
 
-		assertThat(statement.getStatements().size()).isEqualTo(2);
-		assertThat(statement.getBalance()).isEqualTo(BigDecimal.valueOf(50.0));
-		String str = sAccount.print(statement);
-		assertThat(str)
-				.isEqualTo("2000-01-01T00:00:00 DEPOSIT 100.0 100.0\n2000-01-02T00:00:00 WITHDRAWAL 50.0 50.0");
+		//TODO Perhaps its better to mock deposit, withdraw ...
+		sAccount.deposit(account, BigDecimal.valueOf(100.0),null, LocalDateTime.parse("2000-01-01T00:00:00.000", DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+		sAccount.withdraw(account, BigDecimal.valueOf(50.0), null,LocalDateTime.parse("2000-01-02T00:00:00.000", DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+		assertThat(account.getStatements().size()).isEqualTo(2);
+		assertThat(account.getBalance()).isEqualTo(BigDecimal.valueOf(50.0));
+		String str = sAccount.print(account);
+		assertThat(str).isEqualTo("2000-01-01T00:00:00 DEPOSIT 100.0 100.0\n2000-01-02T00:00:00 WITHDRAWAL 50.0 50.0");
 	}
 
 	// /**

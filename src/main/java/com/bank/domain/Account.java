@@ -16,12 +16,20 @@ public class Account extends BusinessObject{
 	/**
 	 * All statements
 	 */
-	public List<StatementItem> statements = new ArrayList<>();
+	private List<StatementItem> statements = new ArrayList<>();
 
 	/**
 	 * the overdraft
 	 */
-	public BigDecimal overdraft = BigDecimal.ZERO;
+	private BigDecimal overdraft = BigDecimal.ZERO;
+	
+	
+	/**
+	 * the balance
+	 */
+	
+	private BigDecimal balance = BigDecimal.ZERO; 
+	
 	
 	public Account() {
 		super();
@@ -74,8 +82,11 @@ public class Account extends BusinessObject{
 	 * @return
 	 */
 	public BigDecimal getBalance() {
-		return this.statements.isEmpty() ? BigDecimal.ZERO
-				: this.statements.get(this.statements.size() - 1).getBalance();
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
 
 }

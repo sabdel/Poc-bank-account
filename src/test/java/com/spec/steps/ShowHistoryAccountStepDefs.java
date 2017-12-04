@@ -34,10 +34,8 @@ public class ShowHistoryAccountStepDefs implements En {
 		});
 
 		Then("^sMy balance should be (\\-?\\d+\\.\\d+)$", (BigDecimal newBalance) -> {
-			assertEquals(0, account.getBalance().compareTo(newBalance));
-			});
-
+			assertEquals(0, serviceAccount.getBalance(account).compareTo(newBalance));
+		});
 
 	}
 }
-
