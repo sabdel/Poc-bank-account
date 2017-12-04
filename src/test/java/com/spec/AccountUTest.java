@@ -33,7 +33,7 @@ public class AccountUTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void should_fail_when_there_is_no_Account() {
 		final BigDecimal aDepositOf100 = BigDecimal.valueOf(100.0);
-		final Account expectedAccount = sAccount.deposit(null, aDepositOf100, null);
+		sAccount.deposit(null, aDepositOf100, null);
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class AccountUTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void should_fail_when_there_is_no_amount() {
 		final Account account = new Account();
-		final Account expectedAccount = sAccount.deposit(account, null, null);
+		sAccount.deposit(account, null, null);
 	}
 
 	@Test
