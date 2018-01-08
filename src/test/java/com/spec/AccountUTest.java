@@ -44,6 +44,18 @@ public class AccountUTest {
 		sAccount.deposit(account, null, null);
 	}
 
+	/**
+	 * should_fail_when_there_is_negative_amount
+	 *
+	 */
+	@Test
+	public void shouldFailWhenThereIsNegativeAmount() {
+		final Account account = new Account();
+		final BigDecimal aDepositOf_100 = BigDecimal.valueOf(-100.0);
+		final Account expectedAccount = sAccount.deposit(account,aDepositOf_100 , null);
+		assertEquals(0, sAccount.getBalance(expectedAccount).compareTo(BigDecimal.ZERO));
+	}
+
 	@Test
 	public void shouldReturnStatementBalance100WhenIDeposit100() {
 		final BigDecimal aDepositOf100 = BigDecimal.valueOf(100.0);
