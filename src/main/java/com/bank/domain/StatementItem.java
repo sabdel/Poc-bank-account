@@ -45,6 +45,8 @@ public class StatementItem extends BusinessObject{
 		return id;
 	}
 
+	
+	
 	public String print(DateTimeFormatter dateFormater){
 		final StringBuilder joiner = new StringBuilder("");
 		joiner.append(this.getTransaction().getDate().format(dateFormater)).append(" ");
@@ -53,6 +55,11 @@ public class StatementItem extends BusinessObject{
 		joiner.append(this.getBalance().toPlainString());
 		return joiner.toString();
 	}
+	
+	
+	
+	
+	
 	
 	@Override
 	public String toString() {
