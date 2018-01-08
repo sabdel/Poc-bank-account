@@ -11,8 +11,8 @@ Feature: In order to save money As a bank client I want to make a deposit in my 
   Examples:
  | amount       | balance   |
  |  100.0       |  100.0    |
- |   0.0        |  0.0    |
- |  -100.0      |  0.0    |    
+ |   0.0        |  0.0      |
+ |  -100.0      |  0.0      |    
     
   
   

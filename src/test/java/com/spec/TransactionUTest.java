@@ -16,7 +16,7 @@ public class TransactionUTest {
      *
      */
     @Test
-    public void should_return_transaction_amount_equals_1_and_date_now_and_operation_deposit_when_transaction_amount_equals_1_and_date_now() {
+    public void shouldReturnTransactionAmountEquals1AndDateNowAndOperationDepositWhenTransactionAmountEquals1AndDateNow() {
         final BigDecimal amount = BigDecimal.valueOf(1.0);
         final LocalDateTime date = LocalDateTime.now();
         final Transaction transaction = new Transaction(amount,null,date,TransactionType.DEPOSIT);
@@ -32,7 +32,7 @@ public class TransactionUTest {
      *
      */
     @Test
-    public void should_return_transaction_amount_equals_minus_1_and_date_now_and_operation_withdrawal_when_transaction_amount_equals_minus_1_and_date_now() {
+    public void shouldReturnTransactionAmountEqualMinus1AndDateNowAndOperationWithdrawalWhenTransactionAmountEqualsMinus1AndDateNow() {
         final BigDecimal amount = BigDecimal.valueOf(1.0).negate();
         final LocalDateTime date = LocalDateTime.now();
         final Transaction transaction = new Transaction(amount,null,date,TransactionType.WITHDRAWAL);
@@ -48,7 +48,7 @@ public class TransactionUTest {
      *
      */
     @Test
-    public void should_return_transaction_amount_equals_0_and_date_now_and_operation_deposit_when_transaction_amount_equals_0_and_date_now() {
+    public void shouldReturnTransactionAmount0AndDateNowAndOperationDepositWhenTransactionAmount0AndDateNow() {
         final BigDecimal amount = BigDecimal.valueOf(0.0).negate();
         final LocalDateTime date = LocalDateTime.now();
         final Transaction transaction = new Transaction(amount,null,date,TransactionType.DEPOSIT);
